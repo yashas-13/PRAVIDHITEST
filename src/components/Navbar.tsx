@@ -1,17 +1,25 @@
-import { motion } from 'motion/react';
+import { motion, useScroll, useMotionValueEvent } from 'motion/react';
 import { useStore } from '../store';
 import { useScrollSpy } from '../hooks/useScrollSpy';
+import { useState } from 'react';
 
 const navLinks = [
   { id: 'philosophy', label: 'Philosophy' },
   { id: 'services', label: 'Services' },
   { id: 'ai-services', label: 'AI Native' },
   { id: 'tech-niches', label: 'Tech Scale' },
+  { id: 'awards', label: 'Awards' },
 ];
 
 export default function Navbar() {
   const setCursorType = useStore((state) => state.setCursorType);
   const activeId = useScrollSpy(navLinks.map(l => l.id));
+  const { scrollYProgress } = useScroll();
+  const [scrollPercent, setScrollPercent] = useState(0);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    setScrollPercent(Math.round(latest * 100));
+  });
 
   return (
     <motion.nav 
@@ -21,12 +29,18 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 backdrop-blur-md bg-black/50 border-b border-zinc-800"
     >
       <div 
-        className="font-bold text-xl tracking-tighter"
+        className="font-bold text-xl tracking-tighter flex items-center gap-3"
         onMouseEnter={() => setCursorType('pointer')}
         onMouseLeave={() => setCursorType('default')}
       >
-        PRAVIDHI<span className="text-teal-400">.</span>
+        <span>PRAVIDHI</span><span className="text-teal-400 font-black">.</span>
+        
+        {/* Subtle Cybernetic HUD percentage badge */}
+        <span className="font-mono text-[9px] bg-zinc-900 border border-zinc-800 text-zinc-500 rounded px-2 py-0.5 tracking-widest uppercase hidden sm:inline-block">
+          SYS_POS: <span className="text-teal-400 font-bold">{scrollPercent}%</span>
+        </span>
       </div>
+
       <div className="hidden md:flex gap-8 text-sm font-medium text-zinc-400 relative">
         {navLinks.map(link => (
           <a 
@@ -57,6 +71,12 @@ export default function Navbar() {
       >
         Contact Us
       </motion.button>
+
+      {/* Futuristic Scroll Progress Line with full color-changing gradient and outer ambient shadow */}
+      <motion.div 
+        style={{ scaleX: scrollYProgress, transformOrigin: "left" }}
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-teal-500 via-indigo-500 to-amber-500 shadow-[0_1px_10px_rgba(20,184,166,0.6)] z-50 pointer-events-none"
+      />
     </motion.nav>
   );
 }

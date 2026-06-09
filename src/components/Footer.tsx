@@ -9,11 +9,11 @@ export default function Footer() {
   const y = useTransform(scrollYProgress, [0, 1], [150, 0]);
 
   return (
-    <footer ref={ref} className="bg-transparent py-20 px-6 md:px-12 border-t border-white/5 overflow-hidden relative backdrop-blur-sm pointer-events-none min-h-[50vh] flex flex-col justify-end">
+    <footer ref={ref} className="bg-transparent py-20 px-6 md:px-12 border-t border-white/5 overflow-hidden relative backdrop-blur-sm pointer-events-none min-h-[50vh] flex flex-col justify-end snap-end">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12 relative z-10 pointer-events-auto">
         <div>
-          <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-8 text-white max-w-lg leading-[1.1]">
-            Let's build <br className="hidden md:block"/> something <span className="text-zinc-600">real.</span>
+          <h2 className="text-[4rem] md:text-[6rem] font-sans tracking-tighter mb-8 text-white max-w-lg leading-[0.9]">
+            Let's <span className="font-serif italic text-zinc-300 font-normal">build</span> <br className="hidden md:block"/> something <span className="text-transparent [-webkit-text-stroke:2px_#ffffff] font-black">real.</span>
           </h2>
           <a href="#">
              <motion.button
@@ -49,8 +49,8 @@ export default function Footer() {
         style={{ scale, y }}
         className="absolute -bottom-8 md:-bottom-20 left-1/2 -translate-x-1/2 w-full select-none pointer-events-none flex justify-center"
       >
-        <h1 className="text-[20vw] md:text-[18vw] font-black text-zinc-900/40 whitespace-nowrap tracking-tighter leading-none">
-          PRAVIDHI.
+        <h1 className="text-[20vw] md:text-[18vw] font-black text-transparent [-webkit-text-stroke:2px_rgba(255,255,255,0.05)] whitespace-nowrap tracking-tighter leading-none mix-blend-overlay">
+          P<span className="font-serif italic font-normal">RA</span>VI<span className="font-serif italic font-normal">DH</span>I.
         </h1>
       </motion.div>
     </footer>
