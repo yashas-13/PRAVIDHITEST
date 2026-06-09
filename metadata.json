@@ -1,0 +1,8 @@
+{
+  "name": "Pravidhi Solutions",
+  "description": "Dynamic, high-end embedded digital team agency landing page.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
