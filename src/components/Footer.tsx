@@ -9,9 +9,14 @@ export default function Footer() {
   const y = useTransform(scrollYProgress, [0, 1], [150, 0]);
 
   return (
-    <footer ref={ref} className="bg-transparent py-20 px-6 md:px-12 border-t border-white/5 overflow-hidden relative backdrop-blur-sm pointer-events-none min-h-[50vh] flex flex-col justify-end snap-end">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12 relative z-10 pointer-events-auto">
-        <div>
+    <footer ref={ref} className="bg-black py-20 px-6 md:px-12 border-t border-white/10 overflow-hidden relative backdrop-blur-sm min-h-[50vh] flex flex-col justify-end snap-end w-full max-w-none">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12 relative z-10 pointer-events-auto w-full">
+        <motion.div
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true, margin: "-50px" }}
+           transition={{ duration: 0.6, delay: 0.1 }}
+        >
           <h2 className="text-[4rem] md:text-[6rem] font-sans tracking-tighter mb-8 text-white max-w-lg leading-[0.9]">
             Let's <span className="font-serif italic text-zinc-300 font-normal">build</span> <br className="hidden md:block"/> something <span className="text-transparent [-webkit-text-stroke:2px_#ffffff] font-black">real.</span>
           </h2>
@@ -24,9 +29,15 @@ export default function Footer() {
                 Contact Pravidhi Solutions
              </motion.button>
           </a>
-        </div>
+        </motion.div>
         
-        <div className="flex flex-col items-start md:items-end gap-6">
+        <motion.div 
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true, margin: "-50px" }}
+           transition={{ duration: 0.6, delay: 0.2 }}
+           className="flex flex-col items-start md:items-end gap-6"
+        >
           <div className="font-mono text-zinc-500 text-sm">
             Based in reality. Available globally.
           </div>
@@ -41,7 +52,7 @@ export default function Footer() {
                <Linkedin size={20} className="group-hover:scale-110 transition-transform" />
              </a>
           </div>
-        </div>
+        </motion.div>
       </div>
       
       {/* Background massive text */}

@@ -36,62 +36,104 @@ export default function AiServices() {
   }, []);
 
   return (
-    <section id="ai-services" ref={ref} className="py-32 px-6 md:px-12 bg-transparent relative max-w-7xl mx-auto min-h-screen flex items-center snap-start">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
+    <section id="ai-services" ref={ref} className="py-32 px-6 md:px-12 bg-orange-50 relative max-w-7xl mx-auto min-h-screen flex items-center snap-start w-full max-w-none">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-7xl mx-auto">
         
         {/* TEXT CONTENT */}
         <motion.div style={{ opacity }} className="relative z-10 w-full">
-          <div className="inline-block px-4 py-1 mb-8 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 font-mono text-sm tracking-widest uppercase">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="inline-block px-4 py-1 mb-8 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-600 font-mono text-sm tracking-widest uppercase"
+          >
             System Sub-Routines Active
-          </div>
-          <h2 className="text-[4rem] md:text-[6rem] tracking-tighter mb-8 leading-none">
-            <span className="font-serif italic font-normal text-zinc-300">Cognitive</span> <br/> <span className="font-black text-transparent [-webkit-text-stroke:2px_rgba(34,211,238,0.8)] drop-shadow-[0_0_20px_rgba(34,211,238,0.5)] uppercase">Telemetry.</span>
-          </h2>
-          <p className="text-xl text-zinc-400 font-medium mb-12 max-w-lg leading-relaxed">
+          </motion.div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-[4rem] md:text-[6rem] tracking-tighter mb-8 leading-none"
+          >
+            <span className="font-serif italic font-normal text-orange-400">Cognitive</span> <br/> <span className="font-modern font-black text-transparent bg-clip-text bg-gradient-to-br from-orange-500 to-rose-600 drop-shadow-[0_0_10px_rgba(249,115,22,0.3)] uppercase">Telemetry.</span>
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-xl text-orange-950/70 font-medium mb-12 max-w-lg leading-relaxed"
+          >
             Standard AI is a wrapper around an API. We build native neural interfaces that monitor, predict, and adapt to your infrastructure in real-time.
-          </p>
+          </motion.p>
 
           <div className="space-y-6">
-            <div className="p-6 border-l-4 border-cyan-500 bg-cyan-950/20 backdrop-blur-md">
-               <h4 className="text-cyan-400 font-bold text-xl uppercase mb-2 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">Predictive Scaling</h4>
-               <p className="text-zinc-400">Models analyzed raw HTTP traffic to auto-provision nodes before load spikes hit.</p>
-            </div>
-            <div className="p-6 border-l-4 border-zinc-700 bg-zinc-900/40 backdrop-blur-md hover:border-cyan-500/50 transition-colors">
-               <h4 className="text-zinc-300 font-bold text-xl uppercase mb-2">Local Edge LLMs</h4>
-               <p className="text-zinc-500">Compiling 7B parameter models to run entirely via local WebGPU for zero-latency operations.</p>
-            </div>
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="p-6 border-l-4 border-orange-500 bg-orange-100 backdrop-blur-md"
+            >
+               <h4 className="text-orange-600 font-bold text-xl uppercase mb-2">Predictive Scaling</h4>
+               <p className="text-orange-950/60">Models analyzed raw HTTP traffic to auto-provision nodes before load spikes hit.</p>
+            </motion.div>
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="p-6 border-l-4 border-rose-400 bg-white/60 backdrop-blur-md hover:border-orange-500/50 transition-colors shadow-sm"
+            >
+               <h4 className="text-orange-950 font-bold text-xl uppercase mb-2">Local Edge LLMs</h4>
+               <p className="text-orange-950/50">Compiling 7B parameter models to run entirely via local WebGPU for zero-latency operations.</p>
+            </motion.div>
           </div>
         </motion.div>
 
         {/* DATA VIZ DASHBOARD */}
         <motion.div style={{ scale, opacity }} className="h-[600px] flex flex-col gap-8">
           
-          <div className="flex-1 rounded-[2rem] bg-black border border-cyan-500/20 backdrop-blur-xl p-8 relative overflow-hidden shadow-[0_0_50px_rgba(34,211,238,0.1)]">
-            <div className="absolute top-4 left-4 text-cyan-500/50 font-mono text-xs">RADAR_SIG_01</div>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex-1 rounded-[2rem] bg-white border border-orange-200 backdrop-blur-xl p-8 relative overflow-hidden shadow-2xl"
+          >
+            <div className="absolute top-4 left-4 text-orange-500/50 font-mono text-xs">RADAR_SIG_01</div>
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
-                <PolarGrid stroke="rgba(34,211,238,0.2)" />
-                <PolarAngleAxis dataKey="subject" tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 10, fontFamily: 'monospace' }} />
-                <Radar name="System" dataKey="A" stroke="#22d3ee" strokeWidth={2} fill="#22d3ee" fillOpacity={0.3} />
+                <PolarGrid stroke="rgba(249,115,22,0.2)" />
+                <PolarAngleAxis dataKey="subject" tick={{ fill: 'rgba(249,115,22,0.8)', fontSize: 10, fontFamily: 'monospace' }} />
+                <Radar name="System" dataKey="A" stroke="#f97316" strokeWidth={2} fill="#f97316" fillOpacity={0.1} />
               </RadarChart>
             </ResponsiveContainer>
-          </div>
+          </motion.div>
 
-          <div className="h-[200px] rounded-[2rem] bg-black border border-white/10 backdrop-blur-xl p-6 relative overflow-hidden">
-             <div className="absolute top-4 left-4 text-zinc-500/50 font-mono text-xs">REALTIME_LOAD_PREDICTION</div>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="h-[200px] rounded-[2rem] bg-white border border-rose-200 backdrop-blur-xl p-6 relative overflow-hidden shadow-lg"
+          >
+             <div className="absolute top-4 left-4 text-rose-400/50 font-mono text-xs">REALTIME_LOAD_PREDICTION</div>
              <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={waveData} margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
                   <defs>
                     <linearGradient id="colorLoad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#22d3ee" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#22d3ee" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.2}/>
+                      <stop offset="95%" stopColor="#f43f5e" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
-                  <Area type="monotone" dataKey="load" stroke="#22d3ee" fillOpacity={1} fill="url(#colorLoad)" isAnimationActive={true} animationDuration={1000} />
-                  <Area type="monotone" dataKey="predictive" stroke="#c084fc" fillOpacity={0} strokeWidth={2} strokeDasharray="5 5" isAnimationActive={true} animationDuration={1000} />
+                  <Area type="monotone" dataKey="load" stroke="#f43f5e" fillOpacity={1} fill="url(#colorLoad)" isAnimationActive={true} animationDuration={1000} />
+                  <Area type="monotone" dataKey="predictive" stroke="#fb923c" fillOpacity={0} strokeWidth={2} strokeDasharray="5 5" isAnimationActive={true} animationDuration={1000} />
                 </AreaChart>
              </ResponsiveContainer>
-          </div>
+          </motion.div>
 
         </motion.div>
 

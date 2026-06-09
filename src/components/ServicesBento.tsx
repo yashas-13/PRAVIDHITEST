@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { useState, useRef, useEffect } from 'react';
 import { 
   Code2, Smartphone, Cloud, Zap, X, Sparkles, Play, RefreshCw, CheckCircle2, 
@@ -68,6 +68,15 @@ export default function ServicesBento() {
   const [activeNodes, setActiveNodes] = useState<boolean[]>([true, true, true, true]);
   const [compressionRatio, setCompressionRatio] = useState(1); // 1 to 10 scale (where 10 is max compressed)
 
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  const headingYPos1 = useTransform(scrollYProgress, [0, 1], [-100, 100]);
+  const headingYPos2 = useTransform(scrollYProgress, [0, 1], [50, -50]);
+
   // Web typed interactive simulated lines
   const codeSnippets = [
     "const renderMesh = () => <Canvas ... />",
@@ -89,28 +98,29 @@ export default function ServicesBento() {
   const computedLighthouse = Math.round(35 + (65 * (compressionRatio / 10)));
 
   return (
-    <section id="services" className="py-24 relative z-30 px-4 max-w-7xl mx-auto w-full snap-start">
-      
+    <section ref={sectionRef} id="services" className="py-24 relative z-30 px-4 w-full bg-zinc-950 text-white snap-start">
+      <div className="max-w-7xl mx-auto w-full">
       {/* Title block with interactive glow lines */}
-      <div className="mb-20 text-center relative">
+      <div className="mb-20 text-center flex flex-col items-center justify-center relative min-h-[300px]">
         <div className="absolute inset-0 bg-teal-500/5 blur-3xl rounded-full" />
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative z-10"
+           style={{ y: headingYPos1 }}
+           className="relative z-10 w-full"
         >
           <span className="text-xs uppercase font-mono tracking-[0.4em] text-teal-400 bg-teal-500/10 px-3 py-1 rounded-full border border-teal-500/20">
             SYSTEM CAPABILITIES
           </span>
           <h2 className="text-[4rem] md:text-[6rem] tracking-tighter mt-4 mb-6 leading-none">
-            <span className="font-serif italic font-normal text-zinc-300">Our</span> <span className="font-black text-transparent [-webkit-text-stroke:2px_rgba(255,255,255,0.8)] filter drop-shadow-[0_0_20px_rgba(255,255,255,0.2)] uppercase">Engineering.</span>
+            <span className="font-serif italic font-normal text-zinc-300">Our</span> <span className="font-modern font-black text-transparent [-webkit-text-stroke:2px_rgba(255,255,255,0.8)] filter drop-shadow-[0_0_20px_rgba(255,255,255,0.2)] uppercase">Engineering.</span>
           </h2>
-          <p className="text-lg md:text-2xl text-zinc-400 max-w-2xl mx-auto font-medium">
-            Click any section below to activate real-time telemetry diagnostics and test simulator.
-          </p>
         </motion.div>
+        
+        <motion.p 
+           style={{ y: headingYPos2 }} 
+           className="text-lg md:text-2xl text-zinc-400 max-w-2xl mx-auto font-medium z-10"
+        >
+          Click any section below to activate real-time telemetry diagnostics and test simulator.
+        </motion.p>
       </div>
 
       {/* Asymmetric Interactive Bento Grid */}
@@ -120,6 +130,10 @@ export default function ServicesBento() {
         <motion.div 
           onClick={() => setActiveService("web-platforms")}
           whileHover={{ y: -5 }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.1 }}
           className="lg:col-span-7 bg-black/60 rounded-[3rem] border border-white/5 backdrop-blur-2xl p-8 flex flex-col justify-between overflow-hidden relative group cursor-pointer shadow-2xl transition-all"
         >
           {/* Subtle Glow Overlay */}
@@ -175,6 +189,10 @@ export default function ServicesBento() {
         <motion.div 
           onClick={() => setActiveService("mobile-native")}
           whileHover={{ y: -5 }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.2 }}
           className="lg:col-span-5 bg-black/60 rounded-[3rem] border border-white/5 backdrop-blur-2xl p-8 flex flex-col justify-between overflow-hidden relative group cursor-pointer shadow-2xl transition-all"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
@@ -249,6 +267,10 @@ export default function ServicesBento() {
         <motion.div 
           onClick={() => setActiveService("cloud-arcs")}
           whileHover={{ y: -5 }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.3 }}
           className="lg:col-span-5 bg-black/60 rounded-[3rem] border border-white/5 backdrop-blur-2xl p-8 flex flex-col justify-between overflow-hidden relative group cursor-pointer shadow-2xl transition-all"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-sky-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
@@ -317,6 +339,10 @@ export default function ServicesBento() {
         <motion.div 
           onClick={() => setActiveService("performance-tuning")}
           whileHover={{ y: -5 }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.4 }}
           className="lg:col-span-7 bg-black/60 rounded-[3rem] border border-white/5 backdrop-blur-2xl p-8 flex flex-col justify-between overflow-hidden relative group cursor-pointer shadow-2xl transition-all"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
@@ -672,6 +698,7 @@ export default function ServicesBento() {
           );
         })()}
       </AnimatePresence>
+      </div>
 
     </section>
   );

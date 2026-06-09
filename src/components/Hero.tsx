@@ -69,7 +69,7 @@ export default function Hero() {
   const setCursorType = useStore((state) => state.setCursorType);
 
   return (
-    <section id="hero" className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden bg-transparent pointer-events-none snap-start">
+    <section id="hero" className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden bg-zinc-950 text-white pointer-events-none snap-start">
       {/* Background glow removed to let WebGL shine */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-500/10 blur-[150px] rounded-full pointer-events-none" />
 
