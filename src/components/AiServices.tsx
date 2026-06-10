@@ -2,6 +2,8 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef, useState, useEffect } from 'react';
 import GlitchEntrance from './GlitchEntrance';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import { BrainModel } from './ThreeModels/BrainModel';
+import ModelContainer from './ThreeModels/ModelContainer';
 
 const radarData = [
   { subject: 'Pattern Recognition', A: 120, fullMark: 150 },
@@ -28,6 +30,7 @@ export default function AiServices() {
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   const [waveData, setWaveData] = useState(generateWaveData());
+  const [viewMode, setViewMode] = useState<'radar' | '3d'>('radar');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -103,16 +106,47 @@ export default function AiServices() {
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex-1 rounded-[2rem] bg-white border border-orange-200 backdrop-blur-xl p-8 relative overflow-hidden shadow-2xl"
+            className="flex-1 rounded-[2rem] bg-white border border-orange-200 backdrop-blur-xl p-8 relative overflow-hidden shadow-2xl flex flex-col justify-center"
           >
-            <div className="absolute top-4 left-4 text-orange-500/50 font-mono text-xs">RADAR_SIG_01</div>
-            <ResponsiveContainer width="100%" height="100%">
-              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
-                <PolarGrid stroke="rgba(249,115,22,0.2)" />
-                <PolarAngleAxis dataKey="subject" tick={{ fill: 'rgba(249,115,22,0.8)', fontSize: 10, fontFamily: 'monospace' }} />
-                <Radar name="System" dataKey="A" stroke="#f97316" strokeWidth={2} fill="#f97316" fillOpacity={0.1} />
-              </RadarChart>
-            </ResponsiveContainer>
+            <div className="absolute top-4 left-4 text-orange-500/50 font-mono text-xs uppercase tracking-wider select-none z-10">
+              {viewMode === 'radar' ? 'Telemetry RADAR' : 'NEURAL CORE MESH'}
+            </div>
+
+            {/* Toggle view button */}
+            <div className="absolute top-4 right-4 flex items-center bg-orange-100/80 rounded-full p-1 border border-orange-200 z-30 select-none">
+              <button 
+                type="button"
+                onClick={() => setViewMode('radar')}
+                className={`px-3 py-1 text-[10px] font-mono rounded-full transition-all cursor-pointer ${viewMode === 'radar' ? 'bg-orange-600 text-white font-bold shadow-sm' : 'text-orange-950/60 hover:text-orange-950'}`}
+              >
+                RADAR
+              </button>
+              <button 
+                type="button"
+                onClick={() => setViewMode('3d')}
+                className={`px-3 py-1 text-[10px] font-mono rounded-full transition-all cursor-pointer ${viewMode === '3d' ? 'bg-orange-600 text-white font-bold shadow-sm' : 'text-orange-950/60 hover:text-orange-950'}`}
+              >
+                3D MESH
+              </button>
+            </div>
+
+            <div className="w-full h-full min-h-[300px] flex items-center justify-center pt-6">
+              {viewMode === 'radar' ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
+                    <PolarGrid stroke="rgba(249,115,22,0.2)" />
+                    <PolarAngleAxis dataKey="subject" tick={{ fill: 'rgba(249,115,22,0.8)', fontSize: 10, fontFamily: 'monospace' }} />
+                    <Radar name="System" dataKey="A" stroke="#f97316" strokeWidth={2} fill="#f97316" fillOpacity={0.1} />
+                  </RadarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="w-full h-full">
+                  <ModelContainer>
+                    <BrainModel />
+                  </ModelContainer>
+                </div>
+              )}
+            </div>
           </motion.div>
 
           <motion.div 

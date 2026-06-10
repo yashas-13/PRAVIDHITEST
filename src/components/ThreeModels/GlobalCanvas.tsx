@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { useStore } from '../../store';
 import { EffectComposer, Bloom, Vignette, Glitch } from '@react-three/postprocessing';
 import { GlitchMode } from 'postprocessing';
+import { BackgroundAnalysisCore, StrategicPlanningGrid } from './BackgroundElements';
 
 function DynamicEffects() {
   const scrollProgress = useStore((state) => state.scrollProgress);
@@ -117,9 +118,18 @@ export default function GlobalCanvas() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0">
       <Canvas camera={{ position: [0, 1, 8], fov: 60 }} dpr={[1, 2]} gl={{ antialias: false }}>
-        <fog attach="fog" args={['#000000', 5, 20]} />
+        <fog attach="fog" args={['#000000', 5, 30]} />
+        <ambientLight intensity={0.2} />
+        <directionalLight position={[10, 10, 5]} intensity={0.5} color="#14b8a6" />
+        <directionalLight position={[-10, 10, -5]} intensity={0.5} color="#3b82f6" />
+        
         <DataTerrain />
         <DataStream />
+        
+        {/* Large ambient scale models for Analysis & Planning */}
+        <BackgroundAnalysisCore />
+        <StrategicPlanningGrid />
+
         <DynamicEffects />
       </Canvas>
     </div>

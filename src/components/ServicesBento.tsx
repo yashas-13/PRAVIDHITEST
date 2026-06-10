@@ -5,6 +5,8 @@ import {
   Code2, Smartphone, Cloud, Zap, X, Sparkles, Play, RefreshCw, CheckCircle2, 
   Flame, MonitorPlay, Wifi, Layers, Cpu, Database, Gauge, ChevronRight, Activity
 } from 'lucide-react';
+import { ArchitectureModel } from './ThreeModels/ArchitectureModel';
+import ModelContainer from './ThreeModels/ModelContainer';
 
 interface Service {
   id: string;
@@ -631,6 +633,16 @@ export default function ServicesBento() {
                             <motion.div className="h-full bg-sky-400" initial={{ width: "10%" }} animate={{ width: "90%" }} transition={{ duration: 1.8, repeat: Infinity, repeatType: "reverse" }} />
                           </div>
                         </div>
+                      </div>
+
+                      {/* Interactive 3D Architecture Visual */}
+                      <div className="w-full bg-zinc-950 border border-white/10 rounded-2xl overflow-hidden shadow-inner h-[220px] relative">
+                        <div className="absolute top-3 left-3 text-[10px] font-mono text-sky-400/50 uppercase select-none z-10 pointer-events-none">
+                          ACTIVE CLUSTER TOPOLOGY MESH (DRAG TO ROTATE)
+                        </div>
+                        <ModelContainer>
+                          <ArchitectureModel />
+                        </ModelContainer>
                       </div>
 
                       <div className="p-6 bg-sky-500/10 border border-sky-500/20 rounded-2xl">
