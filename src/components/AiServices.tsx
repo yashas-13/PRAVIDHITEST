@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef, useState, useEffect } from 'react';
+import GlitchEntrance from './GlitchEntrance';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
 const radarData = [
@@ -36,8 +37,9 @@ export default function AiServices() {
   }, []);
 
   return (
-    <section id="ai-services" ref={ref} className="py-32 px-6 md:px-12 bg-orange-50 relative max-w-7xl mx-auto min-h-screen flex items-center snap-start w-full max-w-none">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-7xl mx-auto">
+    <section id="ai-services" ref={ref} className="py-32 px-6 md:px-12 bg-orange-50 relative max-w-7xl mx-auto min-h-screen flex items-center snap-center w-full max-w-none">
+      <GlitchEntrance id="ai-services-glitch" className="w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-7xl mx-auto">
         
         {/* TEXT CONTENT */}
         <motion.div style={{ opacity }} className="relative z-10 w-full">
@@ -138,6 +140,7 @@ export default function AiServices() {
         </motion.div>
 
       </div>
+      </GlitchEntrance>
     </section>
   );
 }

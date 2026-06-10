@@ -1,5 +1,6 @@
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { useState, useRef, useEffect } from 'react';
+import GlitchEntrance from './GlitchEntrance';
 import { 
   Code2, Smartphone, Cloud, Zap, X, Sparkles, Play, RefreshCw, CheckCircle2, 
   Flame, MonitorPlay, Wifi, Layers, Cpu, Database, Gauge, ChevronRight, Activity
@@ -98,8 +99,9 @@ export default function ServicesBento() {
   const computedLighthouse = Math.round(35 + (65 * (compressionRatio / 10)));
 
   return (
-    <section ref={sectionRef} id="services" className="py-24 relative z-30 px-4 w-full bg-zinc-950 text-white snap-start">
-      <div className="max-w-7xl mx-auto w-full">
+    <section ref={sectionRef} id="services" className="py-24 relative z-30 px-4 w-full bg-zinc-950 text-white snap-center min-h-screen flex items-center justify-center">
+      <GlitchEntrance id="services-bento-glitch" className="w-full">
+        <div className="max-w-7xl mx-auto w-full">
       {/* Title block with interactive glow lines */}
       <div className="mb-20 text-center flex flex-col items-center justify-center relative min-h-[300px]">
         <div className="absolute inset-0 bg-teal-500/5 blur-3xl rounded-full" />
@@ -111,7 +113,7 @@ export default function ServicesBento() {
             SYSTEM CAPABILITIES
           </span>
           <h2 className="text-[4rem] md:text-[6rem] tracking-tighter mt-4 mb-6 leading-none">
-            <span className="font-serif italic font-normal text-zinc-300">Our</span> <span className="font-modern font-black text-transparent [-webkit-text-stroke:2px_rgba(255,255,255,0.8)] filter drop-shadow-[0_0_20px_rgba(255,255,255,0.2)] uppercase">Engineering.</span>
+            <span className="font-sans italic font-normal text-indigo-300">Our</span> <span className="font-modern font-black text-transparent [-webkit-text-stroke:2px_rgba(168,85,247,0.8)] filter drop-shadow-[0_0_20px_rgba(168,85,247,0.2)] uppercase">Engineering.</span>
           </h2>
         </motion.div>
         
@@ -699,7 +701,7 @@ export default function ServicesBento() {
         })()}
       </AnimatePresence>
       </div>
-
+      </GlitchEntrance>
     </section>
   );
 }

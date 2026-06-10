@@ -2,6 +2,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { ArrowRight, Terminal } from 'lucide-react';
 import { useStore } from '../store';
 import { useRef, MouseEvent } from 'react';
+import GlitchEntrance from './GlitchEntrance';
 
 // Word-by-word reveal component for award-winning typography effect
 const RevealText = ({ text, className = "" }: { text: string; className?: string }) => {
@@ -69,11 +70,12 @@ export default function Hero() {
   const setCursorType = useStore((state) => state.setCursorType);
 
   return (
-    <section id="hero" className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden bg-zinc-950 text-white pointer-events-none snap-start">
+    <section id="hero" className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden bg-zinc-950 text-white pointer-events-none snap-center">
       {/* Background glow removed to let WebGL shine */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-500/10 blur-[150px] rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto w-full z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center pointer-events-auto">
+      <GlitchEntrance id="hero-glitch">
+        <div className="max-w-7xl mx-auto w-full z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center pointer-events-auto">
         <div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -90,9 +92,9 @@ export default function Hero() {
             onMouseEnter={() => setCursorType('text')}
             onMouseLeave={() => setCursorType('default')}
           >
-            <RevealText text="End-to-End" className="font-black" /> <br />
+            <RevealText text="End-to-End" className="font-modern font-black" /> <br />
             <RevealText text="Software" className="font-serif italic font-normal text-zinc-300" /> <span className="font-serif italic font-normal text-teal-500">✳</span><br />
-            <RevealText text="Solutions." className="font-black text-transparent [-webkit-text-stroke:2px_#ffffff]" />
+            <RevealText text="Solutions." className="font-display font-black text-transparent [-webkit-text-stroke:2px_#ffffff]" />
           </h1>
 
           <motion.p 
@@ -179,6 +181,7 @@ export default function Hero() {
           </div>
         </motion.div>
       </div>
+      </GlitchEntrance>
     </section>
   );
 }

@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
 import { useRef, useState, useEffect } from 'react';
 import { Rocket, GitMerge, Fingerprint, Activity } from 'lucide-react';
+import GlitchEntrance from './GlitchEntrance';
 import { useStore } from '../store';
 
 const offerings = [
@@ -79,7 +80,7 @@ export default function TechnicalNiches() {
   const sectionY = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
 
   return (
-    <section id="tech-niches" ref={ref} className="bg-blue-950 min-h-[140vh] relative z-30 py-32 text-blue-50 flex items-center justify-center snap-start w-full">
+    <section id="tech-niches" ref={ref} className="bg-blue-950 min-h-[140vh] relative z-30 py-32 text-blue-50 flex items-center justify-center snap-center w-full">
       
       {/* Background Pattern */}
       <div 
@@ -87,7 +88,8 @@ export default function TechnicalNiches() {
         style={{ backgroundImage: `repeating-linear-gradient(45deg, #60a5fa 0, #60a5fa 1px, transparent 1px, transparent 40px)` }}
       />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 flex flex-col items-center">
+      <GlitchEntrance id="tech-niches-glitch" className="w-full">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 flex flex-col items-center">
         <motion.div style={{ y: sectionY }} className="w-full">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -199,6 +201,7 @@ export default function TechnicalNiches() {
           </motion.div>
         </motion.div>
       </div>
+      </GlitchEntrance>
     </section>
   );
 }

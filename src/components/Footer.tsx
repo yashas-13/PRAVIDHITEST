@@ -43,13 +43,13 @@ export default function Footer() {
           </div>
           <div className="flex gap-4">
              <a href="#" className="w-12 h-12 rounded-full bg-zinc-900 flex items-center justify-center border border-zinc-800 hover:bg-zinc-700 hover:text-white transition-all text-zinc-400 group">
-               <Github size={20} className="group-hover:scale-110 transition-transform" />
+                <Github size={20} className="group-hover:scale-110 transition-transform" />
              </a>
              <a href="#" className="w-12 h-12 rounded-full bg-zinc-900 flex items-center justify-center border border-zinc-800 hover:bg-zinc-700 hover:text-white transition-all text-zinc-400 group">
-               <Twitter size={20} className="group-hover:scale-110 transition-transform" />
+                <Twitter size={20} className="group-hover:scale-110 transition-transform" />
              </a>
              <a href="#" className="w-12 h-12 rounded-full bg-zinc-900 flex items-center justify-center border border-zinc-800 hover:bg-zinc-700 hover:text-white transition-all text-zinc-400 group">
-               <Linkedin size={20} className="group-hover:scale-110 transition-transform" />
+                <Linkedin size={20} className="group-hover:scale-110 transition-transform" />
              </a>
           </div>
         </motion.div>

@@ -12,7 +12,7 @@
 
 html {
     scroll-behavior: auto; /* Lenis handles smooth scrolling */
-    scroll-snap-type: y proximity;
+    scroll-snap-type: y mandatory;
 }
 
 body {

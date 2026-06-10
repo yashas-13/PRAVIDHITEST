@@ -1,9 +1,48 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Environment, Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import { useStore } from '../../store';
-import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
+import { EffectComposer, Bloom, Vignette, Glitch } from '@react-three/postprocessing';
+import { GlitchMode } from 'postprocessing';
+
+function DynamicEffects() {
+  const scrollProgress = useStore((state) => state.scrollProgress);
+  const [glitching, setGlitching] = useState(false);
+  const lastSection = useRef(0);
+  const timeoutRef = useRef<any>(null);
+
+  useEffect(() => {
+    // 5 sections total: heroes, philosophy, services, ai, awards/footer?
+    // roughly divide scroll progress by number of sections
+    const numSections = 5;
+    const currentSection = Math.floor(scrollProgress * numSections);
+    
+    if (currentSection !== lastSection.current && currentSection !== undefined) {
+      lastSection.current = currentSection;
+      setGlitching(true);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
+        setGlitching(false);
+      }, 300); // Glitch for 300ms
+    }
+  }, [scrollProgress]);
+
+  return (
+    <EffectComposer multisampling={4}>
+      <Bloom mipmapBlur luminanceThreshold={0.5} intensity={1.5} />
+      <Vignette opacity={0.5} />
+      <Glitch 
+        active={glitching}
+        mode={GlitchMode.SPORADIC}
+        delay={new THREE.Vector2(0, 0)}
+        duration={new THREE.Vector2(0.1, 0.3)}
+        strength={new THREE.Vector2(0.1, 0.5)}
+        ratio={0.85}
+      />
+    </EffectComposer>
+  );
+}
 
 function DataTerrain() {
   const scrollProgress = useStore((state) => state.scrollProgress);
@@ -81,10 +120,7 @@ export default function GlobalCanvas() {
         <fog attach="fog" args={['#000000', 5, 20]} />
         <DataTerrain />
         <DataStream />
-        <EffectComposer multisampling={4}>
-          <Bloom mipmapBlur luminanceThreshold={0.5} intensity={1.5} />
-          <Vignette opacity={0.5} />
-        </EffectComposer>
+        <DynamicEffects />
       </Canvas>
     </div>
   );

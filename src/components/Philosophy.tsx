@@ -1,26 +1,7 @@
-import { motion, useScroll, useTransform, useSpring } from 'motion/react';
-import { useRef } from 'react';
+import { motion } from 'motion/react';
+import GlitchEntrance from './GlitchEntrance';
 
 export default function Philosophy() {
-  const targetRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    damping: 20,
-    stiffness: 100
-  });
-
-  const x = useTransform(smoothProgress, [0, 1], ["0%", "-66%"]);
-  const layer1X = useTransform(smoothProgress, [0, 1], ["0%", "-30%"]);
-  const layer2X = useTransform(smoothProgress, [0, 1], ["0%", "-80%"]);
-  
-  // Advanced Y Parallax for headings representing angled velocity
-  const headingY1 = useTransform(smoothProgress, [0, 0.5], [150, -50]);
-  const headingY2 = useTransform(smoothProgress, [0.2, 0.7], [250, -100]);
-  const headingY3 = useTransform(smoothProgress, [0.4, 1], [350, -150]);
-
   const items = [
     {
       title: <><span className="font-serif italic font-normal">Observe.</span></>,
@@ -28,7 +9,7 @@ export default function Philosophy() {
       color: "text-emerald-700",
       stroke: "text-transparent [-webkit-text-stroke:2px_#047857]",
       number: "01",
-      yParallax: headingY1
+      bgLayer: "bg-zinc-50"
     },
     {
       title: <><span className="font-modern font-black">Embed.</span></>,
@@ -36,7 +17,7 @@ export default function Philosophy() {
       color: "text-indigo-700",
       stroke: "text-transparent [-webkit-text-stroke:2px_#4338ca]",
       number: "02",
-      yParallax: headingY2
+      bgLayer: "bg-zinc-100"
     },
     {
       title: <><span className="font-display font-black tracking-tight">Ship.</span></>,
@@ -44,75 +25,77 @@ export default function Philosophy() {
       color: "text-rose-700",
       stroke: "text-transparent [-webkit-text-stroke:2px_#be123c]",
       number: "03",
-      yParallax: headingY3
+      bgLayer: "bg-zinc-200"
     }
   ];
 
   return (
-    <section ref={targetRef} id="philosophy" className="relative h-[300vh] bg-zinc-50 text-zinc-900 snap-start">
-      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-        
-        {/* Background Parallax Layer */}
-        <motion.div style={{ x: layer2X }} className="absolute flex w-[300vw] px-[10vw] pointer-events-none z-0 mix-blend-overlay">
-           {items.map((item, i) => (
-             <div key={`bg-${i}`} className="w-[100vw] shrink-0 flex items-center justify-center opacity-[0.03]">
-               <span className="text-[40vw] font-black leading-none tracking-tighter [-webkit-text-stroke:4px_#000000] text-transparent">
-                 {item.number}
-               </span>
-             </div>
-           ))}
-        </motion.div>
+    <section id="philosophy" className="relative w-full z-10 text-zinc-900 border-none">
+      {items.map((item, i) => (
+        <div 
+          key={i} 
+          className={`min-h-screen sticky top-0 w-full flex items-center justify-center snap-center overflow-hidden ${item.bgLayer} shadow-2xl`}
+          style={{ zIndex: i + 10 }}
+        >
+          {/* Huge Background Number */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none mix-blend-overlay">
+             <span className="text-[60vw] font-black leading-none tracking-tighter [-webkit-text-stroke:4px_#000000] text-transparent">
+               {item.number}
+             </span>
+          </div>
 
-        {/* Main Content Layer */}
-        <motion.div style={{ x }} className="relative z-10 flex w-[300vw] px-[10vw] h-full items-center">
-          {items.map((item, i) => (
-             <div key={i} className="w-[100vw] flex flex-col md:flex-row items-center justify-center shrink-0 pr-[10vw] gap-12">
-               
-               {/* Left/Top Content: Massive Typography with Y Parallax */}
-               <div className="flex-1 w-full relative h-[400px]">
-                 <motion.h2 
-                    style={{ y: item.yParallax }}
-                    className={`absolute inset-0 text-7xl md:text-[10rem] lg:text-[14rem] font-black tracking-tighter leading-[0.8] mb-4 ${item.color} mix-blend-multiply`}
-                 >
-                   {item.title}
-                 </motion.h2>
-                 
-                 <motion.h2 
-                    style={{ y: item.yParallax, x: -10 }}
-                    className={`absolute inset-0 top-0 left-4 md:left-8 text-7xl md:text-[10rem] lg:text-[14rem] font-black tracking-tighter leading-[0.8] ${item.stroke} pointer-events-none opacity-50`}
-                 >
-                   {item.title}
-                 </motion.h2>
-               </div>
+          <GlitchEntrance id={`philosophy-${item.number}`} className="w-full">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+              
+              {/* Left/Top Content: Massive Typography */}
+              <div className="relative h-[200px] md:h-[400px] flex items-center">
+                <motion.h2 
+                   initial={{ opacity: 0, y: 50 }}
+                   whileInView={{ opacity: 1, y: 0 }}
+                   transition={{ duration: 0.8, ease: "easeOut" }}
+                   className={`absolute text-[5rem] md:text-[8rem] lg:text-[12rem] font-black tracking-tighter leading-none mb-4 ${item.color} mix-blend-multiply`}
+                >
+                  {item.title}
+                </motion.h2>
+                
+                <motion.h2 
+                   initial={{ opacity: 0, x: -50 }}
+                   whileInView={{ opacity: 1, x: -10 }}
+                   transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+                   className={`absolute top-0 left-4 md:left-8 text-[5rem] md:text-[8rem] lg:text-[12rem] font-black tracking-tighter leading-none ${item.stroke} pointer-events-none opacity-50`}
+                >
+                  {item.title}
+                </motion.h2>
+              </div>
 
-               {/* Right/Bottom Content: Interactive Light Card */}
-               <motion.div 
-                 initial={{ opacity: 0, scale: 0.9 }}
-                 whileInView={{ opacity: 1, scale: 1 }}
-                 viewport={{ once: false, margin: "-100px" }}
-                 transition={{ duration: 0.8, delay: 0.3 }}
-                 className="flex-1 w-full max-w-xl group relative"
-               >
-                 <div className={`absolute -inset-0.5 rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-700 bg-current ${item.color}`} />
-                 
-                 <div className="p-8 md:p-14 rounded-[2rem] border border-zinc-200 bg-white/70 backdrop-blur-3xl relative overflow-hidden shadow-2xl">
-                   <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-zinc-400/30 to-transparent" />
-                   
-                   <p className="text-2xl md:text-3xl text-zinc-800 font-medium leading-relaxed tracking-tight relative z-10">
-                     {item.desc}
-                   </p>
+              {/* Right/Bottom Content: Interactive Light Card */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ margin: "-100px" }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="w-full max-w-xl group relative justify-self-center md:justify-self-end mt-12 md:mt-0"
+              >
+                <div className={`absolute -inset-0.5 rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-700 bg-current ${item.color}`} />
+                
+                <div className={`p-8 md:p-14 rounded-[2rem] border border-zinc-200 backdrop-blur-3xl relative overflow-hidden shadow-2xl ${item.bgLayer === 'bg-zinc-50' ? 'bg-white/70' : item.bgLayer === 'bg-zinc-100' ? 'bg-zinc-50/70' : 'bg-zinc-100/70'}`}>
+                  <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-zinc-400/30 to-transparent" />
+                  
+                  <p className="text-xl md:text-3xl text-zinc-800 font-medium leading-relaxed tracking-tight relative z-10">
+                    {item.desc}
+                  </p>
 
-                   <div className="mt-12 flex items-center justify-between border-t border-zinc-200 pt-6">
-                      <span className="font-mono text-xs text-zinc-500 uppercase tracking-widest border border-zinc-200 px-3 py-1 rounded-full bg-zinc-100">Phase {item.number}</span>
-                      <span className={`w-3 h-3 rounded-full bg-current ${item.color} shadow-[0_0_10px_currentColor] animate-pulse`} />
-                   </div>
-                 </div>
-               </motion.div>
+                  <div className="mt-8 md:mt-12 flex items-center justify-between border-t border-zinc-200 pt-6">
+                     <span className="font-mono text-xs text-zinc-500 uppercase tracking-widest border border-zinc-200 px-3 py-1 rounded-full bg-white/50">Phase {item.number}</span>
+                     <span className={`w-3 h-3 rounded-full bg-current ${item.color} shadow-[0_0_10px_currentColor] animate-pulse`} />
+                  </div>
+                </div>
+              </motion.div>
 
-             </div>
-          ))}
-        </motion.div>
-      </div>
+            </div>
+          </GlitchEntrance>
+        </div>
+      ))}
     </section>
   );
 }

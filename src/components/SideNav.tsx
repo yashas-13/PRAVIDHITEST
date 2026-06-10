@@ -6,6 +6,7 @@ const sections = [
   { id: 'philosophy', label: 'Philosophy' },
   { id: 'services', label: 'Services' },
   { id: 'ai-services', label: 'AI Native' },
+  { id: 'ai-employees', label: 'AI Employees' },
   { id: 'tech-niches', label: 'Tech Scale' },
   { id: 'awards', label: 'Awards' },
 ];
@@ -29,17 +30,19 @@ export default function SideNav() {
         return (
           <div 
             key={section.id}
-            className="flex items-center gap-4 group pointer-events-auto cursor-none outline-none"
+            className="flex items-center justify-end gap-4 group pointer-events-auto cursor-none outline-none relative py-2 pl-12"
             onClick={() => scrollTo(section.id)}
             onMouseEnter={() => setCursorType('pointer')}
             onMouseLeave={() => setCursorType('default')}
             role="button"
             tabIndex={0}
           >
-            {/* Label */}
-            <span className={`text-[10px] font-mono uppercase tracking-widest transition-all duration-500 ease-out ${isActive ? 'text-teal-400 opacity-100 translate-x-0' : 'text-zinc-500 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0'}`}>
-              {section.label}
-            </span>
+            {/* Label Tooltip */}
+            <div className={`flex items-center overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] absolute right-6 pointer-events-none ${isActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-3 group-hover:opacity-100 group-hover:translate-x-0'}`}>
+              <span className={`text-[10px] font-mono uppercase tracking-widest whitespace-nowrap px-3 py-1.5 rounded-md backdrop-blur-md border flex items-center shadow-xl ${isActive ? 'bg-teal-500/10 text-teal-400 border-teal-500/30' : 'bg-black/60 text-zinc-300 border-white/10'}`}>
+                {section.label}
+              </span>
+            </div>
             
             {/* Indicator Line */}
             <div className="w-1.5 relative flex justify-center items-center h-8">

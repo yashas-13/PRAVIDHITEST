@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect } from 'react';
 import { Trophy, Award, Shield, Star, ChevronDown } from 'lucide-react';
+import GlitchEntrance from './GlitchEntrance';
 import { useStore } from '../store';
 
 const AWARDS = [
@@ -97,8 +98,9 @@ export default function Awards() {
   };
 
   return (
-    <section id="awards" className="relative z-30 py-32 px-6 md:px-12 bg-emerald-50 max-w-none w-full min-h-screen flex items-center snap-start tracking-tight">
-      <div className="w-full flex flex-col md:flex-row gap-16 items-center max-w-7xl mx-auto">
+    <section id="awards" className="relative z-30 py-32 px-6 md:px-12 bg-emerald-50 max-w-none w-full min-h-screen flex items-center snap-center tracking-tight">
+      <GlitchEntrance id="awards-glitch" className="w-full">
+        <div className="w-full flex flex-col md:flex-row gap-16 items-center max-w-7xl mx-auto">
         
         {/* Left Side: Copy & Title */}
         <motion.div 
@@ -221,6 +223,7 @@ export default function Awards() {
           })}
         </div>
       </div>
+      </GlitchEntrance>
     </section>
   );
 }
