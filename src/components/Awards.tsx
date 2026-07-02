@@ -1,6 +1,5 @@
-import { motion, AnimatePresence } from 'motion/react';
-import { useState, useEffect } from 'react';
-import { Trophy, Award, Shield, Star, ChevronDown } from 'lucide-react';
+import { motion } from 'motion/react';
+import { Trophy, Award, Shield, Star, ArrowUpRight } from 'lucide-react';
 import GlitchEntrance from './GlitchEntrance';
 import { useStore } from '../store';
 
@@ -11,218 +10,130 @@ const AWARDS = [
     year: "2025",
     org: "TechArchitecture Digest",
     desc: "Recognizing excellence in distributed edge architectures and zero-downtime multi-region failover meshes.",
-    icon: <Trophy className="w-6 h-6" />,
-    color: "from-amber-400/20 to-emerald-500/10",
+    icon: <Trophy className="w-8 h-8" />,
+    color: "from-amber-400/20 to-amber-500/5",
     accent: "text-amber-600",
     border: "border-amber-400/30",
-    shadow: "shadow-[0_0_30px_rgba(251,191,36,0.15)]",
-    bg: "bg-white"
+    shadow: "shadow-[0_0_40px_rgba(251,191,36,0.15)] hover:shadow-[0_0_60px_rgba(251,191,36,0.3)]",
+    bg: "bg-amber-50/30"
   },
   {
     id: "ux-excellence",
     title: "Platform UX Excellence",
     year: "2024",
     org: "Digital Design Awards",
-    desc: "Awarded for elevating enterprise conversion rates through highly immersive WebGL experiences.",
-    icon: <Award className="w-6 h-6" />,
-    color: "from-fuchsia-500/20 to-emerald-500/10",
+    desc: "Awarded for elevating enterprise conversion rates through highly immersive WebGL experiences and micro-interactions.",
+    icon: <Award className="w-8 h-8" />,
+    color: "from-fuchsia-500/20 to-fuchsia-500/5",
     accent: "text-fuchsia-600",
     border: "border-fuchsia-500/30",
-    shadow: "shadow-[0_0_30px_rgba(217,70,239,0.15)]",
-    bg: "bg-fuchsia-50/50"
+    shadow: "shadow-[0_0_40px_rgba(217,70,239,0.15)] hover:shadow-[0_0_60px_rgba(217,70,239,0.3)]",
+    bg: "bg-fuchsia-50/30"
   },
   {
     id: "cyber-flagship",
     title: "Cybersecurity Flagship",
     year: "2024",
     org: "Enterprise SecTech",
-    desc: "Zero breaches across 50+ enterprise deployments. Absolute operational zero-trust adherence.",
-    icon: <Shield className="w-6 h-6" />,
-    color: "from-teal-500/20 to-emerald-500/10",
+    desc: "Zero breaches across 50+ enterprise deployments. Absolute operational zero-trust adherence verified by third-party audits.",
+    icon: <Shield className="w-8 h-8" />,
+    color: "from-teal-500/20 to-teal-500/5",
     accent: "text-teal-600",
     border: "border-teal-500/30",
-    shadow: "shadow-[0_0_30px_rgba(20,184,166,0.15)]",
-    bg: "bg-teal-50/50"
+    shadow: "shadow-[0_0_40px_rgba(20,184,166,0.15)] hover:shadow-[0_0_60px_rgba(20,184,166,0.3)]",
+    bg: "bg-teal-50/30"
   },
   {
     id: "fast-50",
     title: "Fast 50 Rising Tech",
     year: "2025",
     org: "Global Business Index",
-    desc: "Recognized for massive scale engineering and exceptional operational deployment speeds.",
-    icon: <Star className="w-6 h-6" />,
-    color: "from-blue-500/20 to-emerald-500/10",
+    desc: "Recognized for massive scale engineering and exceptional operational deployment speeds across multiple continents.",
+    icon: <Star className="w-8 h-8" />,
+    color: "from-blue-500/20 to-blue-500/5",
     accent: "text-blue-600",
     border: "border-blue-500/30",
-    shadow: "shadow-[0_0_30px_rgba(59,130,246,0.15)]",
-    bg: "bg-blue-50/50"
+    shadow: "shadow-[0_0_40px_rgba(59,130,246,0.15)] hover:shadow-[0_0_60px_rgba(59,130,246,0.3)]",
+    bg: "bg-blue-50/30"
   }
 ];
 
 export default function Awards() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
   const setCursorType = useStore((state) => state.setCursorType);
 
-  useEffect(() => {
-    let start = Date.now();
-    let animationFrameId: number;
-    let isMounted = true;
-    const DURATION = 5000;
-
-    const tick = () => {
-      if (!isMounted) return;
-      const now = Date.now();
-      const elapsed = now - start;
-      const currProgress = Math.min((elapsed / DURATION) * 100, 100);
-      setProgress(currProgress);
-
-      if (elapsed >= DURATION) {
-        start = now;
-        setActiveIndex((prev) => (prev + 1) % AWARDS.length);
-        setProgress(0);
-      }
-      animationFrameId = requestAnimationFrame(tick);
-    };
-
-    animationFrameId = requestAnimationFrame(tick);
-    return () => {
-      isMounted = false;
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [activeIndex]);
-
-  const handleManualSelect = (idx: number) => {
-    setActiveIndex(idx);
-    setProgress(0);
-  };
-
   return (
-    <section id="awards" className="relative z-30 py-32 px-6 md:px-12 bg-emerald-50 max-w-none w-full min-h-screen flex items-center snap-center tracking-tight">
+    <section id="awards" className="relative z-30 py-40 px-6 md:px-12 bg-white max-w-none w-full min-h-screen flex flex-col justify-center snap-center items-center">
       <GlitchEntrance id="awards-glitch" className="w-full">
-        <div className="w-full flex flex-col md:flex-row gap-16 items-center max-w-7xl mx-auto">
-        
-        {/* Left Side: Copy & Title */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="w-full md:w-5/12"
-        >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-mono mb-8 uppercase tracking-widest">
-             <Trophy size={12} className="text-amber-500" /> Recognized Excellence
+        <div className="max-w-6xl mx-auto w-full">
+          
+          {/* Centered Header Title */}
+          <div className="text-center mb-20 flex flex-col items-center">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-mono mb-8 uppercase tracking-widest"
+            >
+              <Trophy size={14} className="text-amber-500" /> Recognized Excellence
+            </motion.div>
+            
+            <h2 className="text-[4rem] md:text-[6rem] lg:text-[7rem] font-sans tracking-tighter mb-6 leading-none">
+              <span className="font-black text-transparent bg-clip-text bg-gradient-to-br from-emerald-700 to-teal-900 uppercase">INDUSTRY</span> <br/> 
+              <span className="font-serif italic text-emerald-900/30 font-normal">Acclaimed.</span>
+            </h2>
+            
+            <p className="text-xl md:text-2xl text-emerald-950/60 font-medium leading-relaxed max-w-2xl mx-auto">
+              Our commitment to brutal technical perfection hasn't gone unnoticed. We build systems that win out in the market.
+            </p>
           </div>
-          
-          <h2 className="text-[4rem] md:text-[6rem] font-sans tracking-tighter mb-6 leading-none">
-            <span className="font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-800 uppercase">INDUSTRY</span> <br/> 
-            <span className="font-serif italic text-emerald-950/40 font-normal">Acclaimed.</span>
-          </h2>
-          
-          <p className="text-lg text-emerald-900/70 font-medium leading-relaxed mb-8 max-w-md">
-            Our commitment to brutal technical perfection hasn't gone unnoticed. We build systems that win out in the market and set new industry benchmarks.
-          </p>
-          
-          {/* Global Progress Bar */}
-          <div className="w-full h-1 bg-emerald-200 rounded-full overflow-hidden mt-12 relative">
-             <div className="absolute top-0 left-0 h-full bg-emerald-100 w-full" />
-             <motion.div 
-               className="absolute top-0 left-0 h-full bg-emerald-500"
-               style={{ width: `${progress}%` }}
-             />
-          </div>
-        </motion.div>
 
-        {/* Right Side: Interactive Auto-Accordion */}
-        <div className="w-full md:w-7/12 flex flex-col gap-4">
-          {AWARDS.map((award, idx) => {
-            const isActive = activeIndex === idx;
-
-            return (
+          {/* Centered 2x2 Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+            {AWARDS.map((award, idx) => (
               <motion.div
                 key={award.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.6, delay: 0.2 + idx * 0.1 }}
-                onClick={() => handleManualSelect(idx)}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
                 onMouseEnter={() => setCursorType('pointer')}
                 onMouseLeave={() => setCursorType('default')}
-                layout
-                className={`relative rounded-[2rem] border overflow-hidden cursor-pointer transition-all duration-700 ${
-                  isActive 
-                    ? `${award.bg} backdrop-blur-xl ${award.border} ${award.shadow} p-6 md:p-8 h-auto scale-[1.02] z-10` 
-                    : 'bg-white/50 border-emerald-100 hover:bg-white p-6 h-[88px] md:h-[104px] opacity-60 hover:opacity-100 z-0'
-                }`}
+                className={`group relative overflow-hidden rounded-[2.5rem] p-8 md:p-12 border transition-all duration-700 ease-out cursor-pointer bg-white ${award.border} ${award.shadow}`}
               >
-                {/* Active Background Gradient Glow */}
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.div 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.5 }}
-                      className={`absolute inset-0 bg-gradient-to-br ${award.color} pointer-events-none opacity-50`} 
-                    />
-                  )}
-                </AnimatePresence>
-
-                <div className="relative z-10 flex flex-col h-full justify-between">
-                  {/* Header Row (Always visible) */}
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-4 md:gap-6">
-                      <div className={`w-10 h-10 md:w-14 md:h-14 shrink-0 rounded-2xl flex items-center justify-center transition-colors duration-500 ${isActive ? 'bg-white border shadow-sm ' + award.border + ' ' + award.accent : 'bg-emerald-100 text-emerald-600 border border-emerald-200'}`}>
-                        {award.icon}
-                      </div>
-                      <div>
-                        <h3 className={`text-xl md:text-2xl font-black uppercase tracking-tight transition-colors duration-500 font-display ${isActive ? 'text-emerald-950' : 'text-emerald-900/60'}`}>
-                          {award.title}
-                        </h3>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className={`font-mono text-xs font-bold ${isActive ? award.accent : 'text-emerald-600/60'}`}>{award.year}</span>
-                          <span className="w-1 h-1 rounded-full bg-emerald-300" />
-                          <span className={`text-xs uppercase tracking-wider font-semibold ${isActive ? 'text-emerald-800/60' : 'text-emerald-900/40'}`}>{award.org}</span>
-                        </div>
-                      </div>
+                {/* Hover Gradient Background */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${award.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
+                <div className="absolute inset-0 bg-zinc-50/30 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="flex items-start justify-between mb-8">
+                    <div className={`w-16 h-16 rounded-3xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6 bg-white border ${award.border} ${award.accent} shadow-md`}>
+                      {award.icon}
                     </div>
-                    
-                    <motion.div 
-                      animate={{ rotate: isActive ? 180 : 0 }}
-                      transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                      className={`shrink-0 ${isActive ? 'text-emerald-900' : 'text-emerald-900/30'}`}
-                    >
-                      <ChevronDown size={24} />
-                    </motion.div>
+                    <ArrowUpRight className="w-8 h-8 text-zinc-300 group-hover:text-zinc-600 transition-colors duration-500" />
                   </div>
 
-                  {/* Expanded Content */}
-                  <AnimatePresence>
-                    {isActive && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                        animate={{ opacity: 1, height: 'auto', marginTop: 24 }}
-                        exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className="overflow-hidden"
-                      >
-                        <p className="text-emerald-950/70 font-medium leading-relaxed max-w-xl pb-2 text-lg">
-                          {award.desc}
-                        </p>
-                        
-                        <div className="mt-4 flex gap-3">
-                           <span className="text-[10px] uppercase font-mono tracking-widest px-3 py-1 rounded-md bg-white border border-emerald-200 text-emerald-600 shadow-sm">Awarded for Excellence</span>
-                           <span className="text-[10px] uppercase font-mono tracking-widest px-3 py-1 rounded-md bg-white border border-emerald-200 text-emerald-600 shadow-sm">Distinction</span>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className={`font-mono text-sm font-bold px-3 py-1 bg-white rounded-md border ${award.border} ${award.accent}`}>
+                      {award.year}
+                    </span>
+                    <span className="text-sm font-mono uppercase tracking-widest text-zinc-500 font-semibold">
+                      {award.org}
+                    </span>
+                  </div>
+
+                  <h3 className="text-3xl md:text-4xl font-black font-display uppercase tracking-tight text-zinc-900 mb-4 group-hover:text-emerald-950 transition-colors duration-500">
+                    {award.title}
+                  </h3>
+
+                  <p className="text-lg text-zinc-600 leading-relaxed font-medium mt-auto group-hover:text-zinc-800 transition-colors duration-500">
+                    {award.desc}
+                  </p>
                 </div>
               </motion.div>
-            );
-          })}
+            ))}
+          </div>
+          
         </div>
-      </div>
       </GlitchEntrance>
     </section>
   );
