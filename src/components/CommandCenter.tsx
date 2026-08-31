@@ -136,7 +136,7 @@ export default function CommandCenter({ isOpen, onClose, onSelectSuggestion }: C
                     Type engineering requirements above. Flash-Lite will instantly structure and predict sub-routine components.
                   </p>
                   <div className="flex flex-wrap gap-2 justify-center mt-3">
-                    {["Real-time CRM integrations", "Visual performance telemetry", "WhatsApp sales engine"].map((pill) => (
+                    {["Zero-Trust Cloud Hardening", "LLM Inference Cost & Security Audit", "SOC2 & DPDP Compliance-as-Code", "Managed DevSecOps Solo-Retainer"].map((pill) => (
                       <button
                         key={pill}
                         className="text-[11px] font-mono border border-zinc-800 bg-zinc-900/50 text-teal-300 rounded-full px-3 py-1 hover:border-teal-500/50 hover:bg-teal-500/10 transition-all cursor-pointer"

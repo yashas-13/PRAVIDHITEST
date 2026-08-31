@@ -23,7 +23,7 @@ export default function AssistantAgent({ inputTrigger, onClearTrigger, onOpenSea
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "PRAVIDHI sub-routine initialized. Low-latency Flash-Lite conversational channel is open. Ask me anything about our software engineering modules, deployment readiness, or custom telemetry systems.",
+      content: "PRAVIDHI Sovereign Infrastructure Terminal active. Ask about our 14-day flat-rate cloud security hardening (₹5L), AI Ops cost & penetration audits (₹2.5L), managed DevSecOps retainers, or our sovereign zero-trust NDA protocol.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -55,9 +55,9 @@ export default function AssistantAgent({ inputTrigger, onClearTrigger, onOpenSea
   }, [isOpen]);
 
   const quickPrompts = [
-    { label: "⚡ Flash-Lite Speed?", prompt: "Why is gemini-3.1-flash-lite so low-latency? Give numeric or technical advantages." },
-    { label: "🛠️ PRAVIDHI Modules", prompt: "Summarize the tailored engineering bundles of PRAVIDHI." },
-    { label: "🧬 AI Employees", prompt: "Explain how Next-Gen Localized AI Workforce integrates into corporate workflows." },
+    { label: "🛡️ ₹5L Hardening Sprint", prompt: "What exact deliverables and benchmarks are included in the 14-Day Sovereign Cloud Security Hardening package?" },
+    { label: "🤖 ₹2.5L AI Ops Audit", prompt: "How does the AI Ops & Infrastructure Audit isolate token waste and LLM penetration vulnerabilities?" },
+    { label: "🔒 Sovereign NDA Standard", prompt: "Explain Pravidhi's Confidentiality & Compliance Standard and zero-trust protocol." },
   ];
 
   const sendPrompt = async (promptText: string) => {

@@ -1,19 +1,24 @@
 import { useStore } from '../store';
 import { useScrollSpy } from '../hooks/useScrollSpy';
+import { usePrefetch } from '../hooks/usePrefetch';
 
 const sections = [
   { id: 'hero', label: 'Intro' },
-  { id: 'philosophy', label: 'Philosophy' },
-  { id: 'services', label: 'Services' },
-  { id: 'ai-services', label: 'AI Native' },
-  { id: 'ai-employees', label: 'AI Employees' },
-  { id: 'tech-niches', label: 'Tech Scale' },
-  { id: 'awards', label: 'Awards' },
+  { id: 'philosophy', label: 'Confidentiality' },
+  { id: 'services', label: 'Architecture' },
+  { id: 'ai-services', label: 'AI Security' },
+  { id: 'ai-employees', label: 'AI Workforce' },
+  { id: 'productised-services', label: 'Threat Radar & Solutions' },
+  { id: 'insights-faq', label: 'Knowledge Base' },
+  { id: 'deep-search', label: 'Deep Index & SEO' },
+  { id: 'awards', label: 'Accolades' },
+  { id: 'contact', label: 'Qualify' },
 ];
 
 export default function SideNav() {
   const activeId = useScrollSpy(sections.map(s => s.id));
   const setCursorType = useStore((state) => state.setCursorType);
+  const { prefetch, cancelPrefetch } = usePrefetch();
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -32,8 +37,15 @@ export default function SideNav() {
             key={section.id}
             className="flex items-center justify-end gap-4 group pointer-events-auto cursor-none outline-none relative py-2 pl-12"
             onClick={() => scrollTo(section.id)}
-            onMouseEnter={() => setCursorType('pointer')}
-            onMouseLeave={() => setCursorType('default')}
+            onMouseEnter={() => {
+              setCursorType('pointer');
+              prefetch(section.id);
+            }}
+            onFocus={() => prefetch(section.id)}
+            onMouseLeave={() => {
+              setCursorType('default');
+              cancelPrefetch(section.id);
+            }}
             role="button"
             tabIndex={0}
           >

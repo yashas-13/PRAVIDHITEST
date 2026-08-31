@@ -7,13 +7,17 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
   const setScrollProgress = useStore((state) => state.setScrollProgress);
 
   useEffect(() => {
+    // Disable heavy smooth scroll on mobile devices with touch to preserve native 120Hz scrolling
+    const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: isTouch ? 0.8 : 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
+      touchMultiplier: 1.5,
     });
 
     lenisRef.current = lenis;
@@ -22,14 +26,29 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       setScrollProgress(e.progress);
     });
 
+    let rafId: number;
     function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+      if (!document.hidden) {
+        lenis.raf(time);
+      }
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        lenis.stop();
+      } else {
+        lenis.start();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
+      cancelAnimationFrame(rafId);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       lenis.destroy();
     };
   }, [setScrollProgress]);

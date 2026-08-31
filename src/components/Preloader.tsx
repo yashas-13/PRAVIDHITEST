@@ -12,14 +12,14 @@ export default function Preloader() {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-          setTimeout(() => setIsLoading(false), 500); // Wait a bit before fully removing
+          setTimeout(() => setIsLoading(false), 200); // Snappy exit transition
           return 100;
         }
-        // Randomize the loading step a bit for organic feel
-        const inc = Math.floor(Math.random() * 15) + 5;
+        // Rapid fluid progress increment
+        const inc = Math.floor(Math.random() * 25) + 15;
         return Math.min(prev + inc, 100);
       });
-    }, 150);
+    }, 45);
 
     return () => clearInterval(timer);
   }, [setIsLoading]);

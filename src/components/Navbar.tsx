@@ -1,24 +1,30 @@
 import { motion, useScroll, useMotionValueEvent } from 'motion/react';
 import { useStore } from '../store';
 import { useScrollSpy } from '../hooks/useScrollSpy';
+import { usePrefetch } from '../hooks/usePrefetch';
 import { useState } from 'react';
-import { Search } from 'lucide-react';
+import { Search, ShieldCheck } from 'lucide-react';
 
 const navLinks = [
-  { id: 'philosophy', label: 'Philosophy' },
-  { id: 'services', label: 'Services' },
-  { id: 'ai-services', label: 'AI Native' },
-  { id: 'tech-niches', label: 'Tech Scale' },
-  { id: 'awards', label: 'Awards' },
+  { id: 'philosophy', label: 'Confidentiality' },
+  { id: 'services', label: 'Architecture' },
+  { id: 'ai-services', label: 'AI Security' },
+  { id: 'productised-services', label: 'Threat Radar & Solutions' },
+  { id: 'insights-faq', label: 'Knowledge Base' },
+  { id: 'deep-search', label: 'Deep Index' },
+  { id: 'awards', label: 'Accolades' },
 ];
 
 interface NavbarProps {
   onOpenSearch: () => void;
+  onOpenLegal?: (tab: any) => void;
+  onOpenAdmin?: () => void;
 }
 
-export default function Navbar({ onOpenSearch }: NavbarProps) {
+export default function Navbar({ onOpenSearch, onOpenLegal, onOpenAdmin }: NavbarProps) {
   const setCursorType = useStore((state) => state.setCursorType);
   const activeId = useScrollSpy(navLinks.map(l => l.id));
+  const { prefetch, cancelPrefetch } = usePrefetch();
   const { scrollYProgress } = useScroll();
   const [scrollPercent, setScrollPercent] = useState(0);
 
@@ -52,8 +58,15 @@ export default function Navbar({ onOpenSearch }: NavbarProps) {
             key={link.id}
             href={`#${link.id}`} 
             className={`transition-colors relative py-1 ${activeId === link.id ? 'text-teal-400 font-bold' : 'hover:text-white'}`}
-            onMouseEnter={() => setCursorType('pointer')}
-            onMouseLeave={() => setCursorType('default')}
+            onMouseEnter={() => {
+              setCursorType('pointer');
+              prefetch(link.id);
+            }}
+            onFocus={() => prefetch(link.id)}
+            onMouseLeave={() => {
+              setCursorType('default');
+              cancelPrefetch(link.id);
+            }}
           >
             {link.label}
             {activeId === link.id && (
@@ -68,6 +81,22 @@ export default function Navbar({ onOpenSearch }: NavbarProps) {
         ))}
       </div>
       <div className="flex items-center gap-3">
+        {/* Admin Portal Studio Trigger */}
+        {onOpenAdmin && (
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={onOpenAdmin}
+            title="Admin Studio (Manage FAQs & Zero-Day Threat Radar)"
+            className="px-2.5 py-1.5 border border-zinc-800 hover:border-teal-500/50 rounded-full bg-zinc-950/60 text-zinc-400 hover:text-teal-300 flex items-center gap-1.5 text-xs font-mono cursor-pointer transition-all"
+            onMouseEnter={() => setCursorType('pointer')}
+            onMouseLeave={() => setCursorType('default')}
+          >
+            <ShieldCheck size={13} className="text-teal-400" />
+            <span className="hidden lg:inline text-[11px]">ADMIN</span>
+          </motion.button>
+        )}
+
         {/* Quick Search Trigger */}
         <motion.button
           whileHover={{ scale: 1.05 }}
@@ -82,15 +111,17 @@ export default function Navbar({ onOpenSearch }: NavbarProps) {
           <span className="bg-zinc-900 border border-zinc-800 px-1 py-0.2 rounded text-[8px] text-zinc-500 font-mono leading-none">/</span>
         </motion.button>
 
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="px-5 py-2 bg-white text-black text-sm font-semibold rounded-full hidden md:block hover:bg-neutral-200 transition-colors"
-          onMouseEnter={() => setCursorType('pointer')}
-          onMouseLeave={() => setCursorType('default')}
-        >
-          Contact Us
-        </motion.button>
+        <a href="#contact">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-5 py-2 bg-teal-400 text-black text-xs font-mono font-bold uppercase tracking-wider rounded-full hidden md:block hover:bg-teal-300 transition-colors cursor-pointer"
+            onMouseEnter={() => setCursorType('pointer')}
+            onMouseLeave={() => setCursorType('default')}
+          >
+            Qualify Now
+          </motion.button>
+        </a>
       </div>
 
       {/* Futuristic Scroll Progress Line with full color-changing gradient and outer ambient shadow */}
